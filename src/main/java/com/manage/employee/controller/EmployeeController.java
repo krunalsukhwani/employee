@@ -55,4 +55,19 @@ public class EmployeeController {
         model.addAttribute("employees",employeeRepository.findAll());
         return "index";
     }
+
+    @GetMapping("/update/{id}")
+    public String moveToUpdateEmployeePage(@PathVariable("id")int id, Model model){
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("Invalid Employee ID" + id));
+        model.addAttribute("employee",employee);
+        return "update-employee";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateEmployee(@PathVariable("id")int id,Employee employee,Model model){
+        employeeRepository.save(employee);
+        model.addAttribute("employees",employeeRepository.findAll());
+        return "index";
+    }
 }
