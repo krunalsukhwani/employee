@@ -65,7 +65,11 @@ public class EmployeeController {
     }
 
     @PostMapping("/update/{id}")
-    public String updateEmployee(@PathVariable("id")int id,Employee employee,Model model){
+    public String updateEmployee(@PathVariable("id")int id,@Valid Employee employee,BindingResult bindingResult,Model model){
+        if(bindingResult.hasErrors()){
+            employee.setId(id);
+            return "update-employee";
+        }
         employeeRepository.save(employee);
         model.addAttribute("employees",employeeRepository.findAll());
         return "index";
