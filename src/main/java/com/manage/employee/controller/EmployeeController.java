@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -43,6 +44,15 @@ public class EmployeeController {
 
         employeeRepository.save(employee);
         model.addAttribute("employees", employeeRepository.findAll());
+        return "index";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteEmployee(@PathVariable("id")int id, Model model){
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("Invalid Employee ID" + id));
+        employeeRepository.delete(employee);
+        model.addAttribute("employees",employeeRepository.findAll());
         return "index";
     }
 }

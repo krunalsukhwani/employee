@@ -19,6 +19,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Address</th>
                 <th scope="col">Salary</th>
+                <th scope="col">Delete Employee</th>
             </tr>
             </thead>
             <tbody>
@@ -27,6 +28,7 @@
                 <td th:text="${employee.name}"></td>
                 <td th:text="${employee.address}"></td>
                 <td th:text="${employee.salary}"></td>
+                <td><a th:href="@{/delete/{id}(id=${employee.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
